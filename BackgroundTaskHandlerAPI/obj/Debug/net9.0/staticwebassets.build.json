@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "C3xa2W0lS2+/UZE62ASgoaFG8e57ISpGE+1WHtZBbHA=",
+  "Source": "BackgroundTaskHandlerAPI",
+  "BasePath": "_content/BackgroundTaskHandlerAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
