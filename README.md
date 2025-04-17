@@ -1,100 +1,104 @@
 # Background Task Management API
 
-Uma API leve e extensível para gerenciamento de tarefas em segundo plano, com registro automático de tarefas e configuração de auto-start. Inclui integração com a biblioteca Dapper para acesso eficiente a dados e normalização.
+A lightweight and extensible API for managing background tasks, featuring automatic task registration and auto-start configuration. Includes integration with the Dapper library for efficient data access and normalization.
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- 🔁 **Registro Automático de Tarefas**  
-  Tarefas são descobertas e registradas automaticamente na inicialização — sem necessidade de configuração manual.
+- 🔁 **Automatic Task Registration**  
+  Tasks are automatically discovered and registered at startup — no manual setup required.
 
-- 🚀 **Configuração de Auto-Start**  
-  Tarefas podem ser configuradas para iniciar automaticamente via configuração ou código.
+- 🚀 **Auto-Start Configuration**  
+  Tasks can be configured to start automatically via configuration or programmatically.
 
-- ⚙️ **Gerenciamento de Ciclo de Vida das Tarefas**  
-  Inicie, pare e monitore tarefas em segundo plano facilmente via API.
+- ⚙️ **Task Lifecycle Management**  
+  Easily start, stop, and monitor background tasks through the API.
 
-- 🗃️ **Integração com Dapper**  
-  Uso do micro-ORM Dapper para acesso a dados de alta performance e normalização.
+- 🗃️ **Dapper Integration**  
+  Uses the Dapper micro-ORM for high-performance data access and normalization.
 
-## 📦 Stack Tecnológico
+## 📦 Tech Stack
 
-- **.NET** (ex: ASP.NET Core)
+- **.NET** (e.g., ASP.NET Core)
 - **C#**
 - **Dapper**
 - **Microsoft.Extensions.Hosting**
 
-## 🛠️ Primeiros Passos
+## 🛠️ Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
 - [.NET SDK](https://dotnet.microsoft.com/download)
-- Banco de dados SQL (ex: MSSQL, PostgreSQL)
+- SQL Database (e.g., MSSQL, PostgreSQL)
 
-### Instalação
+### Installation
 
 ```bash
-git clone https://github.com/seu-usuario/background-task-api.git
+git clone https://github.com/your-username/background-task-api.git
 cd background-task-api
 dotnet restore
 ```
 
-## ⚙️ Configuração
-Atualize o appsettings.json com suas preferências:
+## ⚙️ Configuration
 
-```bash
+You can configure tasks to start automatically by updating the `appsettings.json` file:
+
+```json
 {
-  "TaskSettings": {
-    "AutoStartEnabled": true
-  },
-  "ConnectionStrings": {
-    "DefaultConnection": "sua-connection-string-aqui"
+  "Tasks": {
+    "SampleTask": {
+      "AutoStart": true
+    }
   }
 }
 ```
 
-## ▶️ Executando a Aplicação
-Execute o projeto com o comando:
+Or programmatically register and start tasks using the service container.
 
-```bash
-dotnet run
-```
-A API será iniciada e as tarefas com auto-start habilitado serão executadas automaticamente.
+## 📈 API Endpoints
 
-## 🧩 Uso
-### Registrando uma Tarefa
-Para registrar uma nova tarefa, basta implementar a interface IBackgroundTask:
+> Example routes for task control (customizable as needed):
 
-```bash
-public class SampleTask : TaskBase
+- `GET /tasks` – List all registered tasks
+- `POST /tasks/{taskName}/start` – Start a specific task
+- `POST /tasks/{taskName}/stop` – Stop a specific task
+
+## ✅ Example
+
+Here’s a simple task implementation:
+
+```csharp
+public class SampleTask : IHostedService
 {
-    public string Name => "SampleTask";
+    private Timer _timer;
 
-    public Task ExecuteAsync(CancellationToken stoppingToken)
+    public Task StartAsync(CancellationToken cancellationToken)
     {
-        // Sua lógica de tarefa em segundo plano
+        _timer = new Timer(ExecuteTask, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
+        return Task.CompletedTask;
+    }
+
+    private void ExecuteTask(object state)
+    {
+        // Task logic here
+    }
+
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        _timer?.Dispose();
         return Task.CompletedTask;
     }
 }
 ```
 
-Essa tarefa será registrada automaticamente se estiver incluída no projeto e seguir a convenção definida.
+## 🤝 Contributing
 
-## 💾 Exemplo com Dapper
-Utilize o Dapper para acessar e normalizar dados:
+Contributions, issues, and feature requests are welcome!  
+Feel free to fork the repository and submit a pull request.
 
-```bash
-using (var connection = new SqlConnection(_connectionString))
-{
-    var data = await connection.QueryAsync<MyModel>("SELECT * FROM MyTable");
-}
-```
-Certifique-se de ter sua string de conexão configurada corretamente no appsettings.json.
+## 📄 License
 
-## ✅ TODO
- - Adicionar dashboard ou UI de monitoramento
- - Implementar página de documentação
+This project is licensed under the [MIT License](LICENSE).
 
-## 📄 Licença
-Este projeto está licenciado sob a Licença MIT.  
-Consulte o arquivo [LICENSE](https://github.com/MatheusFilipeFreitas/BackgroundTaskApiManager-Entity-Framework/blob/main/LICENSE) para mais detalhes.
+---
 
+Made using .NET and Dapper.
