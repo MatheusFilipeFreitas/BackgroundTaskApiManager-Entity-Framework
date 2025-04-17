@@ -92,10 +92,9 @@ Certifique-se de ter sua string de conexão configurada corretamente no appsetti
 
 ## ✅ TODO
  - Adicionar dashboard ou UI de monitoramento
- - Estender opções de agendamento (ex: sintaxe tipo cron)
- - Adicionar lógica de retry e rastreamento de erros
- - Implementar suporte a tarefas baseadas em fila
+ - Implementar página de documentação
 
 ## 📄 Licença
-Este projeto está licenciado sob a Licença MIT.
-Consulte o arquivo LICENSE para mais detalhes.
+Este projeto está licenciado sob a Licença MIT.  
+Consulte o arquivo [LICENSE](https://github.com/MatheusFilipeFreitas/BackgroundTaskApiManager-Entity-Framework/blob/main/LICENSE) para mais detalhes.
+
