@@ -43,16 +43,21 @@ dotnet restore
 You can configure tasks to start automatically by updating the `appsettings.json` file:
 
 ```json
-{
-  "Tasks": {
-    "SampleTask": {
-      "AutoStart": true
+  "StartupTasks": [
+    {
+      "Name": "Task1",
+      "StartTime": "19:00:00",
+      "StopTime": "05:00:00"
     }
-  }
-}
+  ]
 ```
+Add your database updating the `appsettings.json` or `appsettings.json` file:
 
-Or programmatically register and start tasks using the service container.
+```json
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost;Database=MyDatabase;User Id=myuser;Password=mypassword;TrustServerCertificate=True;"
+  },
+```
 
 ## 📈 API Endpoints
 
@@ -67,28 +72,18 @@ Or programmatically register and start tasks using the service container.
 Here’s a simple task implementation:
 
 ```csharp
-public class SampleTask : IHostedService
+public class SampleTask(ILogger<SampleTask> logger) : TaskBase
 {
-    private Timer _timer;
-
-    public Task StartAsync(CancellationToken cancellationToken)
+    public override Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        _timer = new Timer(ExecuteTask, null, TimeSpan.Zero, TimeSpan.FromMinutes(5));
-        return Task.CompletedTask;
-    }
-
-    private void ExecuteTask(object state)
-    {
-        // Task logic here
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        _timer?.Dispose();
+        logger.LogInformation($"{this.GetType().Name} - {nameof(Task2)}");
         return Task.CompletedTask;
     }
 }
 ```
+
+Add the Manual tasks inside the `/BackgroundTaskHandlerAPI/Models/Tasks/ManualTasks/` folder.
+And add the Startup tasks inside the `/BackgroundTaskHandlerAPI/Models/Tasks/StartupTasks/` folder.
 
 ## 🤝 Contributing
 
