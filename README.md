@@ -65,7 +65,7 @@ A API será iniciada e as tarefas com auto-start habilitado serão executadas au
 Para registrar uma nova tarefa, basta implementar a interface IBackgroundTask:
 
 ```bash
-public class SampleTask : IBackgroundTask
+public class SampleTask : TaskBase
 {
     public string Name => "SampleTask";
 
