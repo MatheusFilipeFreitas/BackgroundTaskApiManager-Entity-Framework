@@ -33,7 +33,7 @@ A lightweight and extensible API for managing background tasks, featuring automa
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/background-task-api.git
+git clone https://github.com/MatheusFilipeFreitas/BackgroundTaskApiManager-Entity-Framework.git
 cd background-task-api
 dotnet restore
 ```
